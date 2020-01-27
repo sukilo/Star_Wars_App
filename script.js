@@ -1,34 +1,43 @@
 //Star Wars API URL
-const url = 'https://swapi.co/api/films/?format=json';
+const url = 'https://swapi.co/api/films/';
 
-const ul = document.getElementById("list_of_films");
+const myURL = new URL(window.location.href);
+//console.log(myURL.searchParams.get("id"));
 
-function createNode(element) {
-    return document.createElement(element); 
-  }
+const ul = document.getElementById("getFilms");
 
-  function appendNode(parent, element) {
-    return parent.appendChild(element); 
-  }
+const container = document.createElement("div");
+container.setAttribute("class","container");
+ul.appendChild(container);
 
+function getFilms(){
 
-fetch(url)
-    .then(response =>{
-       //console.log(response.json());
-       return response.json();
-    })
+    fetch(url)    
+    .then(response => response.json())
     .then (data =>{
-        //console.log(response);
-    
-        data.results.map((movieTitle)=>{
-            let li = createNode('li'),
-            span = createNode('span');
-            span.innerText = movieTitle.title;
+        //console.log(data);
+			data = data.results;
+			        console.log(data);
 
-            appendNode(li,span);
-            appendNode(ul,li);
+			data.forEach(function(films){
+				const card = document.createElement('div');
+				card.setAttribute('class','card');
+				
+				const btn = document.createElement('button');
+				 btn.textContent = films.title;
+				 //console.log(films.title);
+            
+				container.appendChild(card);
+				card.appendChild(btn);
+					
+				btn.onclick = function(){
+                    window.location.href = `details.html?movieId=${films.episode_id}`;
+				}
+			}); 
         })
-    })
     .catch (function(error) {
         console.log(error);
     })
+}
+
+getFilms();
