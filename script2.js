@@ -3,10 +3,6 @@ const url = 'https://swapi.co/api/films/';
 
 var app = document.getElementById("getDetails");
 
-const container = document.createElement("div");
-container.setAttribute("class","container");
-app.appendChild(container);
-
 window.onload = function getDetails(){
 
     fetch(url)    
@@ -38,11 +34,12 @@ window.onload = function getDetails(){
                         var myDiv= document.getElementById("myDiv");
 
                         array.forEach(function(a){
-                            var last = a.substring(a.lastIndexOf("/") - 2);
+                            var q = a.substring(a.lastIndexOf("/") - 1);
+                            var last = q.replace ("/","")
                             //console.log(last);
 
                             var aTag = document.createElement("a");
-                            aTag.setAttribute("href",`details2.html?charId=${a.last}`)
+                            aTag.setAttribute("href",`details2.html?charId=${last}`)
                             aTag.innerHTML = last;
                             myDiv.appendChild(aTag);
 
@@ -62,3 +59,4 @@ window.onload = function getDetails(){
         }})
     })
 }
+
