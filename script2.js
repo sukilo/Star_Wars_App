@@ -17,8 +17,13 @@ window.onload = function getDetails(){
         data.forEach(function(films){
             //this.console.log(data.results);
             if(document.location.search==`?movieId=${films.episode_id}`){
-                //console.log("hello2");
-    
+                console.log("hello2");
+
+                console.log(films.characters);
+                
+                //Gets Last parameter of the URL for each link in characters
+                array = films.characters;
+
                 var keys = Object.keys(films);
 
                 keys.forEach(function(key){
@@ -26,9 +31,30 @@ window.onload = function getDetails(){
                     var clone = document.importNode(template.content, true);
                     
                     clone.querySelector(".h2").textContent = key;
-                    clone.querySelector(".p").textContent = films[key];
 
-                    app.appendChild(clone);
+                    if(films[key] == films.characters){
+                        clone.querySelector(".h2").textContent = key;
+
+                        var myDiv= document.getElementById("myDiv");
+
+                        array.forEach(function(a){
+                            var last = a.substring(a.lastIndexOf("/") - 2);
+                            //console.log(last);
+
+                            var aTag = document.createElement("a");
+                            aTag.setAttribute("href",`details2.html?charId=${a.last}`)
+                            aTag.innerHTML = last;
+                            myDiv.appendChild(aTag);
+
+                            app.appendChild(clone); 
+                            app.appendChild(myDiv); 
+                        })
+                    }else{
+                       clone.querySelector(".p").textContent = films[key];
+
+                    app.appendChild(clone); 
+                    }
+                    
 
                  }) 
 

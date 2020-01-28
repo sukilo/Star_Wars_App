@@ -10,6 +10,7 @@ const container = document.createElement("div");
 container.setAttribute("class","container");
 ul.appendChild(container);
 
+
 function getFilms(){
 
     fetch(url)    
