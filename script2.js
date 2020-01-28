@@ -1,7 +1,7 @@
-//Star Wars API URL
+//Star Wars films URL
 const url = 'https://swapi.co/api/films/';
 
-var app = document.getElementById("getDetails");
+let app = document.getElementById("getDetails");
 
 window.onload = function getDetails(){
 
@@ -11,16 +11,10 @@ window.onload = function getDetails(){
         data = data.results;
 
         data.forEach(function(films){
-            //this.console.log(data.results);
             if(document.location.search==`?movieId=${films.episode_id}`){
-                console.log("hello2");
-
-                console.log(films.characters);
                 
-                //Gets Last parameter of the URL for each link in characters
                 array = films.characters;
-
-                var keys = Object.keys(films);
+                let keys = Object.keys(films);
 
                 keys.forEach(function(key){
                     var template = document.querySelector("#template");
@@ -28,18 +22,19 @@ window.onload = function getDetails(){
                     
                     clone.querySelector(".h2").textContent = key;
 
+                    //Use <template> to display details
                     if(films[key] == films.characters){
                         clone.querySelector(".h2").textContent = key;
 
-                        var myDiv= document.getElementById("myDiv");
+                        let myDiv = document.getElementById("myDiv");
 
                         array.forEach(function(a){
-                            var q = a.substring(a.lastIndexOf("/") - 1);
+                            let q = a.substring(a.lastIndexOf("/") - 2);
                             var last = q.replace ("/","")
-                            //console.log(last);
 
-                            var aTag = document.createElement("a");
-                            aTag.setAttribute("href",`details2.html?charId=${last}`)
+                            //Created <a> for each character link
+                            let aTag = document.createElement("a");
+                            aTag.setAttribute("href",`charDetails.html?charId=${last}`)
                             aTag.innerHTML = last;
                             myDiv.appendChild(aTag);
 
@@ -47,16 +42,20 @@ window.onload = function getDetails(){
                             app.appendChild(myDiv); 
                         })
                     }else{
-                       clone.querySelector(".p").textContent = films[key];
-
-                    app.appendChild(clone); 
+                        clone.querySelector(".p").textContent = films[key];
+                        app.appendChild(clone); 
                     }
-                    
-
                  }) 
-
-     
         }})
+    })
+    .catch (function(error) {
+        console.log(error);
     })
 }
 
+const btnHome = document.getElementById('btnHome');
+if (window.location.href.match('filmDetails.html') != null) {
+    btnHome.addEventListener('click',function(){
+    window.location.href = "index.html";
+    })
+}

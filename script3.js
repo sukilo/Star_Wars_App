@@ -1,11 +1,11 @@
-var app = document.getElementById("getChar");
+let app = document.getElementById("getChar");
 
 //get id of current window
-var id = window.location.href;
+let id = window.location.href;
 id = id.substring(id.lastIndexOf('=')+1);   
 
 //appended URL for fetch using id with characters link
-let urlNew = (`https://swapi.co/api/people/${id}`)
+const urlNew = (`https://swapi.co/api/people/${id}`)
 
 window.onload = function getChar(){
 
@@ -28,5 +28,12 @@ window.onload = function getChar(){
     })
     .catch (function(error) {
         console.log(error);
+    })
+}
+
+const btnHome = document.getElementById('btnHome');
+if (window.location.href.match('charDetails.html') != null) {
+    btnHome.addEventListener('click',function(){
+    window.location.href = "index.html";
     })
 }
